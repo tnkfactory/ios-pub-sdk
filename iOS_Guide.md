@@ -56,7 +56,8 @@
 이후 XCode -> Target -> General -> Frameworks, Libraries, and Embedded Content 항목에 TnkPubSdk.xcframework 가 있는 것을 확인하시고 Embed 설정을 Embed & Sign 으로 변경합니다.
 
 아래의 이미지를 참고하세요.
-
+(./img/drag_framework.png)
+(./img/framework_embed.png)
 
 
 ### Test Flight
