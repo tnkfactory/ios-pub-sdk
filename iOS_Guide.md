@@ -335,17 +335,11 @@ class ViewController: UIViewController, TnkAdListener {
 
 ## 4. 네이티브 광고 (Native Ad)
 
-### 레이아웃 생성
+#### 레이아웃 생성
 
+#### 네이티브 객체 생성
 
-
-### 네이티브 객체 생성
-
-
-
-### 네이티브 광고 띄우기
-
-
+#### 네이티브 광고 띄우기
 
 
 ## 6. 동영상 광고 (Video Ad)
