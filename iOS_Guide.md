@@ -166,20 +166,42 @@ COPPA는 [미국 어린이 온라인 개인정보 보호법](https://www.ftc.gov
 
 ### 전면 광고 객체 생성
 
-SDK 클래스들을 import 해주세요.
-```java
-import com.tnkfactory.ad.*;
+#### Swift
+
+프레임워크를 import 하시고 아래와 같이 Placement ID 를 입력하여 전면 광고 객체를 생성합니다.
+
+```Swift
+import UIKit
+import TnkPubSdk
+...
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        let adItem = TnkInterstitialAdItem(viewController: self,
+                                              placementId: "YOUR-PLACEMENT-ID")
+    }
+}
 ```
+#### Objective-C
 
-아래와 같이 Placement ID를 입력하여 전면 광고 객체를 생성합니다.
+프레임워크 Header 파일(TnkPubSdk.h) 을 import 하시고 아래와 같이 Placement ID 를 입력하여 전면 광고 객체를 생성합니다.
+
 ```java
-@Override
-public void onCreate(Bundle savedInstanceState) {
-  ...
+#import <UIKit/UIKit.h>
+#import <TnkPubSdk/TnkPubSdk.h>
 
-    InterstitialAdItem interstitialAdItem = new InterstitialAdItem(this, "YOUR-PlACEMENT-ID");
+...
 
-  ...
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    TnkInterstitialAdItem* adItem = [[TnkInterstitialAdItem alloc]
+                                        initWithViewController:self
+                                        placementId:@"YOUR-PLACEMENT-ID"];
+    
 }
 ```
 
