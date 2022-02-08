@@ -1,2 +1,2 @@
-# ios_pub_sdk
+# TnkFactory Pub SDK (iOS)
 iOS Pub SDK
