@@ -65,7 +65,7 @@
 아래의 코드를 사용하어 간단하게 테스트 광고를 띄워보세요.
 
 > 전면 광고 (Interstitial Ad)
->> Swift
+#### Swift
 ```swift
 // ViewController.swift
 
@@ -89,7 +89,7 @@ class ViewController: UIViewController, TnkAdListener {
         adItem.show()
     }
 ```
->> Objectvie-C
+#### Objectvie-C
 ```objective-C
 // ViewController.h
 
