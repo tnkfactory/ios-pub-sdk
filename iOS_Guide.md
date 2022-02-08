@@ -319,13 +319,13 @@ class ViewController: UIViewController, TnkAdListener {
 #### 네이티브 광고 띄우기
 
 
-## 6. 동영상 광고 (Video Ad)
+## 5. 동영상 광고 (Video Ad)
 
 지원 예정입니다.
 
 
 
-## 7. AdListener 사용 방법
+## 6. AdListener 사용 방법
 
 전면, 배너, 네이티브 등 모든 광고는 setListener()를 통해 AdListener를 등록하여 사용할 수 있습니다.
 
