@@ -62,8 +62,9 @@
 ### Test Flight
 
 아래의 코드를 사용하어 간단하게 테스트 광고를 띄워보세요.
-> SDK import
 
+> 전면 광고 (Interstitial Ad)
+>> Swift
 ```swift
 // ViewController.swift
 
@@ -87,7 +88,7 @@ class ViewController: UIViewController, TnkAdListener {
         adItem.show()
     }
 ```
-
+>> Objectvie-C
 ```objective-C
 // ViewController.h
 
@@ -118,7 +119,7 @@ class ViewController: UIViewController, TnkAdListener {
 ```
 
 
-> 전면 광고 (Interstitial Ad)
+
 
 ```java
 InterstitialAdItem adItem = new InterstitialAdItem(this,"TEST_INTERSTITIAL_V", new AdListener() {
