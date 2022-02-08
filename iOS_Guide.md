@@ -149,6 +149,12 @@ Test Flight 에서는 별도로 계정등록을 하지않아도 간단히 테스
 
 COPPA는 [미국 어린이 온라인 개인정보 보호법](https://www.ftc.gov/tips-advice/business-center/privacy-and-security/children's-privacy) 및 관련 법규입니다. 구글 에서는 앱이 13세 미만의 아동을 대상으로 서비스한다면 관련 법률을 준수하도록 하고 있습니다. 연령에 맞는 광고가 보일 수 있도록 아래의 옵션을 설정하시기 바랍니다.
 
+#### Swift
+```Swift
+    TnkAdConfiguration.setCOPPA(true)  // ON - 13세 미안 아동을 대상으로 한 서비스 일경우 사용
+    TnkAdConfiguration.setCOPPA(false) // 기본값
+```
+#### Objective-C
 ```Objective-C
     [TnkAdConfiguration setCOPPA:YES]; // ON - 13세 미안 아동을 대상으로 한 서비스 일경우 사용
     [TnkAdConfiguration setCOPPA:NO];  // 기본값
