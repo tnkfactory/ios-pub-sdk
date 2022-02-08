@@ -69,7 +69,32 @@ import TnkPubSdk
 ```
 
 ```objective-C
+// ViewController.h
+
+#import <UIKit/UIKit.h>
 #import <TnkPubSdk/TnkPubSdk.h>
+
+@interface ViewController : UIViewController <TnkAdListener>
+
+@property (nonatomic, weak) IBOutlet UIButton *adButton;
+
+- (IBAction)adButtonPressed:(id)sender;
+@end
+
+// ViewController.m
+
+- (IBAction)adButtonPressed:(id)sender {
+    TnkInterstitialAdItem* adItem = [[TnkInterstitialAdItem alloc]
+                                        initWithViewController:self
+                                        placementId:@"TEST_INTERSTITIAL_V"];
+    [adItem setListener:self];
+    
+    [adItem load];
+}
+
+- (void)onLoad:(id<TnkAdItem>)adItem {
+    [adItem show];
+}
 ```
 
 
