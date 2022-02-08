@@ -211,31 +211,65 @@ import TnkPubSdk
 
 전면 광고가 로드되는 시점에 바로 광고를 띄우려면 AdListener 를 사용합니다.
 
-```java
-public class MainActivity extends AppCompatActivity {
+```Swift
+import UIKit
+import TnkPubSdk
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-      ...
+class ViewController: UIViewController, TnkAdListener {
 
-        // 전면 광고 객체 생성
-        InterstitialAdItem interstitialAdItem = new InterstitialAdItem(this,"YOUR-PlACEMENT-ID");
-      	// AdListener를 사용해 전면 광고가 로드되는 시점에 노출
-        interstitialAdItem.setListener(new AdListener() {
-            @Override
-            public void onLoad(AdItem adItem) {
-                adItem.show();
-            }
-        });
-
-      	// 전면 광고 로드
-        interstitialAdItem.load();
-
-      ...
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        let adItem = TnkInterstitialAdItem(viewController: self,
+                                              placementId: "YOUR-PLACEMENT-ID")
+        
+        adItem.setListener(self)
+        adItem.load()
     }
+    
+    func onLoad(_ adItem:TnkAdItem) {
+        adItem.show()
+    }
+    
+
 }
 ```
 
+```Objective-C
+// ViewController.h
+#import <UIKit/UIKit.h>
+#import <TnkPubSdk/TnkPubSdk.h>
+
+@interface ViewController : UIViewController <TnkAdListener>
+@end
+
+// ViewController.m
+#import "ViewController.h"
+
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    TnkInterstitialAdItem* adItem = [[TnkInterstitialAdItem alloc]
+                                        initWithViewController:self
+                                        placementId:@"YOUR-PLACEMENT-ID"];
+    [adItem setListener:self];
+    [adItem load];
+}
+
+- (void)onLoad:(id<TnkAdItem>)adItem {
+    [adItem show];
+}
+
+@end
+```
 #### 광고 로드 후 일정시간 후에 노출
 
 만약 광고를 로드하고 일정시간 후에 광고를 띄우시려면 아래와 같이 광고가 성공적으로 로딩되었는지 확인한 후 광고를 띄우실 수 있습니다.
