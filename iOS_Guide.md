@@ -117,36 +117,9 @@ class ViewController: UIViewController, TnkAdListener {
     [adItem show];
 }
 ```
-
-
-
-
-```java
-InterstitialAdItem adItem = new InterstitialAdItem(this,"TEST_INTERSTITIAL_V", new AdListener() {
-        @Override
-        public void onLoad(AdItem adItem) {
-            adItem.show();
-        }
-    });
-
-adItem.load();
-```
 > 배너 광고 (Banner Ad)
 
-```xml
-<com.tnkfactory.ad.BannerAdView
-    android:id="@+id/banner_ad_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:background="#ffffffff"
-    app:placement_id="TEST_BANNER_100"/>
-```
 
-```java
-BannerAdView bannerAdView = findViewById(R.id.banner_ad_view);
-bannerAdView.load();
-```
 > Test Flight 용 Placement 들
 
 아래와 같이 광고 유형별로 Test Flight 용 Placement 들을 제공하고 있습니다. 아래의 Placement ID 를 사용하시면 별도로 계정이나 앱을 등록하지 않아도 간단하게 테스트 광고를 띄워보실 수 있습니다.
