@@ -65,7 +65,27 @@
 > SDK import
 
 ```swift
+// ViewController.swift
+
+import UIKit
 import TnkPubSdk
+
+class ViewController: UIViewController, TnkAdListener {
+
+    @IBOutlet var adbutton:UIButton!
+    
+    @IBAction func didButtonClicked() {
+        //TnkUtils.showATTPopup(viewController: self)
+        
+        let adItem = TnkInterstitialAdItem(viewController: self,
+                                              placementId: "TEST_INTERSTITIAL_V")
+        adItem.setListener(self)
+        adItem.load()
+    }
+    
+    func onLoad(adItem:TnkAdItem) {
+        adItem.show()
+    }
 ```
 
 ```objective-C
