@@ -59,32 +59,19 @@
 
 
 
-AndroidManifest.xml 파일에 아래의 권한을 추가해주세요.
-
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-```
-
-동영상 광고 적용 시 **ACCESS_WIFI_STATE** 권한은 필수 설정 권한입니다.
-
-```xml
-<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-```
-
-Proguard 를 사용하시는 경우 Proguard 설정 파일에 아래의 내용을 반드시 넣어주세요.
-
-```proguard
- -keep class com.tnkfactory.** { *;}
-```
-
 ### Test Flight
 
 아래의 코드를 사용하어 간단하게 테스트 광고를 띄워보세요.
 > SDK import
 
-```java
-import com.tnkfactory.ad.*;
+```swift
+import TnkPubSdk
 ```
+
+```objective-C
+#import <TnkPubSdk/TnkPubSdk.h>
+```
+
 
 > 전면 광고 (Interstitial Ad)
 
