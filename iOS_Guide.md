@@ -327,518 +327,179 @@ class ViewController: UIViewController, TnkAdListener {
 
 ## 3. 배너 광고 (Banner Ad)
 
-배너 광고를 사용하는 방법은 XML 뷰 삽입 방식과 뷰 동적 생성 방식 두 가지가 있습니다.
-
-### XML 뷰 삽입 방식
+배너 광고를 사용하기 위해서는 우선 배너 광고를 보여주기위한 View(Container View) 를 생성하신후 해당 View 를 TnkBannerView에 설정해야합니다.
 
 #### 배너 뷰 생성
 
-레이아웃 XML 내에 아래와 같이 배너 뷰를 생성합니다.
-
-이때 Placement ID를 입력해줍니다.
-
-```xml
-<RelativeLayout
-   ...
-   >
-      ...
-
-        <com.tnkfactory.ad.BannerAdView
-            android:id="@+id/banner_ad_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:placement_id="YOUR-PLACEMENT-ID" />
-
-      ...
-</RelativeLayout>
-```
-
 #### 배너 광고 로드
 
-SDK 클래스들을 import 해주세요.
-```java
-import com.tnkfactory.ad.*;
-```
-
-XML에 삽입된 배너 뷰에 아래와 같이 광고를 로드합니다.
-
-```java
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-    	...
-
-        BannerAdView bannerAdView = findViewById(R.id.banner_ad_view);
-
-    		// 배너 광고 로드
-        bannerAdView.load();
-
-    	...
-    }
-}
-```
-
-### 뷰 동적 생성 방식
-
-#### 부모 레이아웃 생성
-
-레이아웃 XML 내에 아래와 같이 배너 뷰를 넣어 줄 부모 레이아웃을 생성합니다.
-
-```xml
-<RelativeLayout
-   ...
-   >
-      ...
-
-        <RelativeLayout
-            android:id="@+id/banner_ad_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-      ...
-</RelativeLayout>
-```
-
-#### 배너 광고 로드
-
-SDK 클래스들을 import 해주세요.
-```java
-import com.tnkfactory.ad.*;
-```
-
-아래와 같이 Placement ID를 입력하여 배너 뷰 생성 후 배너 광고를 로드해줍니다.
-
-```java
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-      ...
-
-        RelativeLayout bannerAdLayout = findViewById(R.id.banner_ad_layout);
-
-      	// 배너 뷰 객체 생성
-        BannerAdView bannerAdView = new BannerAdView(this, "YOUR-PLACEMENT-ID");
-
-      	// 부모 레이아웃에 배너 뷰 삽입
-        bannerAdLayout.addView(bannerAdView);
-
-      	// 배너 광고 로드
-        bannerAdView.load();
-
-      ...
-    }
-}
-```
-
-## 4. 피드형 광고 (Feed Ad)
-
-피드형 광고를 사용하는 방법은 Xml 방식과 뷰 동적 생성 방식 두 가지가 있습니다.
-
-### Xml 뷰 삽입 방식
-
-#### 피드 뷰 생성
-
-레이아웃 Xml 내에 아래와 같이 피드 뷰를 넣어줍니다.
-
-이때 Placement ID를 입력해줍니다.
-
-```xml
-<RelativeLayout
-   ...
-   >
-      ...
-
-        <com.tnkfactory.ad.FeedAdView
-            android:id="@+id/feed_ad_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:placement_id="YOUR-PLACEMENT-ID"/>
-
-      ...
-</RelativeLayout>
-```
-
-#### 피드 광고 로드
-
-SDK 클래스들을 import 해주세요.
-```java
-import com.tnkfactory.ad.*;
-```
-
-XML에 삽입된 피드 뷰에 아래와 같이 광고를 로드합니다.
-
-```java
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        FeedAdView feedAdView = findViewById(R.id.feed_ad_view);
-
-        // 피드 광고 로드
-        feedAdView.load();
-    }
-}
-```
-
-### 뷰 동적 생성 방식
-
-#### 부모 레이아웃 생성
-
-레이아웃 XML 내에 아래와 같이 피드 뷰를 넣어 줄 부모 레이아웃을 생성합니다.
-
-```xml
-<RelativeLayout
-   ...
-   >
-      ...
-
-        <RelativeLayout
-            android:id="@+id/feed_ad_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-      ...
-</RelativeLayout>
-```
-
-#### 피드 광고 로드
-
-SDK 클래스들을 import 해주세요.
-```java
-import com.tnkfactory.ad.*;
-```
-
-아래와 같이 Placement ID를 입력하여 피드 뷰 생성 후 배너 광고를 로드해줍니다.
-
-```java
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-      ...
-
-        RelativeLayout feedAdLayout = findViewById(R.id.feed_ad_layout);
-
-        // 피드 뷰 객체 생성
-        FeedAdView feedAdView = new FeedAdView(this, "YOUR-PLACEMENT-ID");
-
-        // 부모 레이아웃에 피드 뷰 삽입
-        feedAdLayout.addView(feedAdView);
-
-        // 피드 광고 로드
-        feedAdView.load();
-
-      ...
-    }
-}
-```
-
-
-
-## 5. 네이티브 광고 (Native Ad)
+## 4. 네이티브 광고 (Native Ad)
 
 ### 레이아웃 생성
 
-네이티브 광고를 보여줄 레이아웃(native_ad_item.xml)을 생성합니다.
 
-아래 레이아웃은 예시이며 실제로 사용시 원하시는 구조로 만드시면 됩니다.
-
-```xml
-<RelativeLayout
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:padding="6dp"
-	android:background="#DDDDDD">
-
-	<RelativeLayout
-		android:id="@+id/native_ad_image_layout"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
-
-		<FrameLayout
-			android:id="@+id/native_ad_content"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
-
-		<ImageView
-			android:id="@+id/native_ad_watermark_container"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentRight="true"/>
-	</RelativeLayout>
-
-	<RelativeLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp"
-		android:layout_below="@+id/native_ad_image_layout">
-
-		<ImageView
-			android:id="@+id/native_ad_icon"
-			android:layout_width="72dp"
-			android:layout_height="72dp"
-			android:layout_alignParentTop="true"
-			android:layout_alignParentLeft="true"
-			android:padding="4dp"
-			android:scaleType="fitXY"/>
-		<TextView
-			android:id="@+id/native_ad_title"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_toRightOf="@id/native_ad_icon"
-			android:layout_alignParentTop="true"
-			android:layout_marginTop="3dp"
-			android:layout_marginLeft="8dp"
-			android:gravity="center_vertical"
-			android:textColor="#ff020202"
-			android:textSize="17sp"/>
-		<TextView
-			android:id="@+id/native_ad_desc"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_toRightOf="@id/native_ad_icon"
-			android:layout_below="@id/native_ad_title"
-			android:layout_marginLeft="8dp"
-			android:layout_marginTop="8dp"
-			android:gravity="center_vertical"
-			android:textColor="#ff179dce"
-			android:textSize="13sp"/>
-	</RelativeLayout>
-</RelativeLayout>
-```
 
 ### 네이티브 객체 생성
 
-SDK 클래스들을 import 해주세요.
-```java
-import com.tnkfactory.ad.*;
-```
 
-```java
-@Override
-public void onCreate(Bundle savedInstanceState) {
-  ...
-
-    NativeAdItem nativeAdItem = new NativeAdItem(this, "YOUR-PlACEMENT-ID");
-
-  ...
-}
-```
 
 ### 네이티브 광고 띄우기
 
-#### 광고 로드 후 바로 노출
 
-네이티브 광고가 로드되는 시점에 바로 광고를 띄우려면 AdListener 를 사용합니다.
 
-```java
-public class MainActivity extends AppCompatActivity {
-  ...
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-      ...
-
-        NativeAdItem nativeAdItem = new NativeAdItem(this, "YOUR-PlACEMENT-ID");
-
-        // AdListener를 사용해 네이티브 광고가 로드되는 시점에 노출
-        nativeAdItem.setListener(new AdListener() {
-
-            @Override
-            public void onLoad(AdItem adItem) {
-                // 네이티브 광고 노출
-                showNativeAd((NativeAdItem) adItem);
-            }
-        });
-
-        // 네이티브 광고 로드
-        nativeAdItem.load();
-
-      ...
-    }
-
-  ...
-
-    // 네이티브 광고 노출
-    private void showNativeAd(NativeAdItem nativeAdItem) {
-
-        if (nativeAdItem != null & nativeAdItem.isLoaded()) {
-
-            // 네이티브 광고가 삽입될 컨테이너 초기화
-            ViewGroup adContainer = findViewById(R.id.native_ad_container);
-            adContainer.removeAllViews();
-
-            // 컨테이너에 네이티브 아이템 레이아웃 삽입
-            ViewGroup view = (ViewGroup) View.inflate(this, R.layout.native_ad_item, adContainer);
-
-            // 네이티브 바인더 객체 생성
-            // 생성자에 메인 컨텐츠가 표시될 뷰 ID 필수 입력
-            NativeViewBinder binder = new NativeViewBinder(R.id.native_ad_content);
-
-            // 네이티브 바인더 셋팅
-            binder.iconId(R.id.native_ad_icon)
-                    .titleId(R.id.native_ad_title)
-                    .textId(R.id.native_ad_desc)
-                    .watermarkIconId(R.id.native_ad_watermark_container)
-                    .addClickView(R.id.native_ad_content);
-
-            // 네이티브 광고 노출
-            nativeAdItem.attach(view, binder);
-        }
-    }
-
-  ...
-}
-```
-
-#### 광고 로드 후 일정시간 후에 노출
-
-만약 광고를 로드하고 일정시간 후에 광고를 띄우시려면 아래와 같이 광고가 성공적으로 로딩되었는지 확인한 후 광고를 띄우실 수 있습니다.
-
-```java
-// 전면 광고 객체 생성
-NativeAdItem nativeAdItem = new NativeAdItem(this,"YOUR-PlACEMENT-ID");
-// 네이티브 광고 로드
-nativeAdItem.load();
-
-...
-
-// 일정시간 후에 광고가 로드 되었는지 확인 후 show 호출
-// load와 show를 동시 호출하면 광고 미로드 상태로 전면 광고가 노출되지 않습니다.
-if (nativeAdItem.isLoaded()) {
-
-    // 네이티브 광고가 삽입될 컨테이너 초기화
-    ViewGroup adContainer = findViewById(R.id.native_ad_container);
-    adContainer.removeAllViews();
-
-    // 컨테이너에 네이티브 아이템 레이아웃 삽입
- 		ViewGroup view = (ViewGroup) View.inflate(this, R.layout.native_ad_item, adContainer);
-
-    // 네이티브 바인더 객체 생성
-    // 생성자에 메인 컨텐츠가 표시될 뷰 ID 필수 입력
-    NativeViewBinder binder = new NativeViewBinder(R.id.native_ad_content);
-
-    // 네이티브 바인더 셋팅
-    binder.iconId(R.id.native_ad_icon)
-            .titleId(R.id.native_ad_title)
-            .textId(R.id.native_ad_desc)
-            .watermarkIconId(R.id.native_ad_watermark_container)
-            .addClickView(R.id.native_ad_content);
-
-    // 네이티브 광고 노출
-    nativeAdItem.attach(view, binder);
-}
-```
 
 ## 6. 동영상 광고 (Video Ad)
 
-동영상 광고는 전면 광고와 사용 방법이 같아서 Placement ID를 생성할 때 동영상 광고 설정을 진행해주시고 [전면 광고 가이드](#2-전면-광고-interstitial-ad)를 그대로 활용하시면 됩니다.
-
-### 리워드 동영상 광고 적립 여부 확인
-
-리워드 동영상 광고의 경우 재생 완료 후 AdListener를 사용하여 적립 여부를 확인할 수 있습니다.
-
-```java
-interstitialAdItem.setListener(new AdListener() {
-  ...
-
-    /**
-     * 광고의 재생이 완료되었을 경우 호출됩니다.
-     * @param adItem 광고 아이템
-     * @param verifyCode 적립 여부
-     */
-    @Override
-    public void onVideoCompletion(AdItem adItem, int verifyCode) {
-        super.onVideoCompletion(adItem, verifyCode);
-
-        if (verifyCode >= VIDEO_VERIFY_SUCCESS_SELF) {
-            // 적립 성공
-        } else {
-            // 적립 실패
-        }
-    }
-
-  ...
-});
-```
+지원 예정입니다.
 
 
 
 ## 7. AdListener 사용 방법
 
-전면, 배너, 피드형, 네이티브 등 모든 광고는 setListener()를 통해 AdListener를 등록하여 사용할 수 있습니다.
+전면, 배너, 네이티브 등 모든 광고는 setListener()를 통해 AdListener를 등록하여 사용할 수 있습니다.
 
 필요한 메소드만 Override하여 사용하면 됩니다.
 
-```java
-public abstract class AdListener {
+```Swift
+@objc public enum AdClose : Int {
+    case Simple = 0
+    case Auto = 1
+    case Exit = 2
+    
+    public func description() -> String {
+        switch self {
+        case .Simple:
+            return "AdClose.Simple"
+        case .Auto:
+            return "AdClose.Auto"
+        case .Exit:
+            return "AdClose.Exit"
+        default:
+            return "AdClose.Unknown"
+        }
+    }
+}
 
-    public static int CLOSE_SIMPLE = 0; // 클릭하지 않고 그냥 close
-    public static int CLOSE_AUTO = 1; // 자동 닫기 시간이 지나서 close
-    public static int CLOSE_EXIT = 2; // 전면인 경우 종료 버튼으로 close
+@objc public enum AdError : Int {
+    case NoError = 0
+    case NoAd = -1
+    case NoImage = -2
+    case Timeout = -3
+    case Cancel = -4
+    case ShowBeforeLoad = -5
+    case NoAdFrame = -6 // not used yet in iOS
+    case DupLoad = -7
+    case DupShow = -8
+    case NoPlacementId = -24
+    case NoScreenOrientation = -25
+    case NoTestDevice = -28
+    case SystemFailure = -99
+    
+    public func description() -> String {
+        switch self {
+        case .NoError:
+            return "AdError.NoError"
+        case .NoAd:
+            return "AdError.NoAd"
+        case .NoImage:
+            return "AdError.NoImage"
+        case .Timeout:
+            return "AdError.Timeout"
+        case .Cancel:
+            return "AdError.Cancel"
+        case .ShowBeforeLoad:
+            return "AdError.ShowBeforeLoad"
+        case .NoAdFrame:
+            return "AdError.NoAdFrame"
+        case .DupLoad:
+            return "AdError.DupLoad"
+        case .DupShow:
+            return "AdError.DupShow"
+        case .NoPlacementId:
+            return "AdError.NoPlacementId"
+        case .NoScreenOrientation:
+            return "AdError.NoScreenOrientation"
+        case .NoTestDevice:
+            return "AdError.NoTestDevice"
+        case .SystemFailure:
+            return "AdError.SystemFailure"
+        default:
+            return "AdError.Unknown"
+        }
+    }
+}
 
-    // video completion 확인 코드
-    public static int VIDEO_VERIFY_SUCCESS_S2S = 1; // 매체 서버를 통해서 검증됨
-    public static int VIDEO_VERIFY_SUCCESS_SELF = 0; // 매체 서버 URL이 설정되지 않아 Tnk 자체 검증
-    public static int VIDEO_VERIFY_FAILED_S2S = -1; // 매체 서버를 통해서 지급불가 판단됨
-    public static int VIDEO_VERIFY_FAILED_TIMEOUT = -2; // 매체 서버 호출시 타임아웃 발생
-    public static int VIDEO_VERIFY_FAILED_NO_DATA = -3; // 광고 송출 및 노출 이력 데이터가 없음
-    public static int VIDEO_VERIFY_FAILED_TEST_VIDEO = -4; // 테스트 동영상 광고임
-    public static int VIDEO_VERIFY_FAILED_ERROR = -9; // 그외 시스템 에러가 발생
+@objc public enum AdVideo : Int {
+    case VerifySuccessS2S = 1 // 매체 서버를 통해서 검증됨
+    case VerifySuccessSelf = 0 // 매체 서버 URL이 설정되지 않아 Tnk 자체 검증
+    case VerifyFailedS2s = -1 // 매체 서버를 통해서 지급불가 판단됨
+    case VerifyFailedTimeout = -2 // 매체 서버 호출시 타임아웃 발생
+    case VerifyFailedNoData = -3 // 광고 송출 및 노출 이력 데이터가 없음
+    case VerifyFailedTest = -4 // 테스트 동영상 광고임
+    case VerifyFailedError = -9 // 그외 시스템 에러가 발생
+    
+    public func description() -> String {
+        switch self {
+        case .VerifySuccessS2S:
+            return "AdVideo.VerifySuccessS2S"
+        case .VerifySuccessSelf:
+            return "AdVideo.VerifySuccessSelf"
+        case .VerifyFailedS2s:
+            return "AdVideo.VerifyFailedS2s"
+        case .VerifyFailedTimeout:
+            return "AdVideo.VerifyFailedTimeout"
+        case .VerifyFailedNoData:
+            return "AdVideo.VerifyFailedNoData"
+        case .VerifyFailedTest:
+            return "AdVideo.VerifyFailedTest"
+        case .VerifyFailedError:
+            return "AdVideo.VerifyFailedError"
+        default:
+            return "AdVideo.UnknownError"
+        }
+    }
+}
 
-    /**
+@objc public protocol TnkAdListener {
+    
+        /**
      * 화면 닫힐 때 호출됨
      * @param adItem 이벤트 대상이되는 AdItem 객체
      * @param type 0:simple close, 1: auto close, 2:exit
      */
-    public void onClose(AdItem adItem, int type) {
-
-    }
-
+    @objc optional func onClose(_ adItem:TnkAdItem, type:AdClose)
+    
     /**
      * 광고 클릭시 호출됨
      * 광고 화면은 닫히지 않음
      * @param adItem 이벤트 대상이되는 AdItem 객체
      */
-    public void onClick(AdItem adItem) {
-
-    }
-
+    @objc optional func onClick(_ adItem:TnkAdItem)
+    
     /**
      * 광고 화면이 화면이 나타나는 시점에 호출된다.
      * @param adItem 이벤트 대상이되는 AdItem 객체
      */
-    public void onShow(AdItem adItem) {
-
-    }
-
+    @objc optional func onShow(_ adItem:TnkAdItem)
+    
     /**
      * 광고 처리중 오류 발생시 호출됨
      * @param adItem 이벤트 대상이되는 AdItem 객체
      * @param error AdError
      */
-    public void onError(AdItem adItem, AdError error) {
-
-    }
-
+    @objc optional func onError(_ adItem:TnkAdItem, error:AdError)
+    
     /**
      * 광고 load() 후 광고가 도착하면 호출됨
      * @param adItem 이벤트 대상이되는 AdItem 객체
      */
-    public void onLoad(AdItem adItem) {
-
-    }
-
+    @objc optional func onLoad(_ adItem:TnkAdItem)
+    
     /**
      * 동영상이 포함되어 있는 경우 동영상을 끝까지 시청하는 시점에 호출된다.
      * @param adItem 이벤트 대상이되는 AdItem 객체
      * @param verifyCode 동영상 시청 완료 콜백 결과.
      */
-    public void onVideoCompletion(AdItem adItem, int verifyCode) {
-
-    }
+    @objc optional func onVideoCompletion(_ adItem:TnkAdItem, verifyCode:Int)
 }
 ```
