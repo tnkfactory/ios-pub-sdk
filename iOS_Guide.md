@@ -308,6 +308,7 @@ class ViewController: UIViewController, TnkAdListener {
 
 배너 광고를 사용하기 위해서는 우선 배너 광고를 보여주기위한 View(Container View) 를 생성하신후 해당 View 를 TnkBannerView에 설정해야합니다. StoryBoard 또는 Xib 파일에 TnkBannerView 를 표시할 UIView 를 생성합니다.
 
+![banner_layout](./img/banner_layout.png)
 
 #### 배너 뷰 생성 및 배너 광고 로드
 
@@ -381,6 +382,8 @@ class ViewController: UIViewController, TnkAdListener {
 #### 레이아웃 생성
 
 StoryBoard 또는 Xib 파일을 사용하여 아래의 이미지 예시처럼 네이티브 광고를 표시할 View 를 구성합니다. Native 광고에는 메인이미지, 아이콘이미지, 광고타이틀, 광고설명문 등이 제공됩니다.
+
+![native_layout](./img/native_layout.png)
 
 #### 네이티브 객체 생성 및 광고 로드
 
