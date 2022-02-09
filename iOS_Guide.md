@@ -380,9 +380,96 @@ class ViewController: UIViewController, TnkAdListener {
 
 #### 레이아웃 생성
 
-#### 네이티브 객체 생성
+StoryBoard 또는 Xib 파일을 사용하여 아래의 이미지 예시처럼 네이티브 광고를 표시할 View 를 구성합니다. Native 광고에는 메인이미지, 아이콘이미지, 광고타이틀, 광고설명문 등이 제공됩니다.
 
-#### 네이티브 광고 띄우기
+#### 네이티브 객체 생성 및 광고 로드
+
+네이티브 광고를 받아오기 위한 TnkNativeAdItem 객체를 생성하시고 load() 메소드를 호출합니다. 이후 onLoad() 시점에 필요한 광고 데이터를 가져와 화면에 표시합니다.
+
+```Swift
+import UIKit
+import TnkPubSdk
+
+class ViewController: UIViewController, TnkAdListener {
+    @IBOutlet var bannerContainerView:UIView!
+
+    @IBOutlet var nativeContainerView:UIView!
+    @IBOutlet var nativeImageView:UIImageView!
+    @IBOutlet var nativeIconView:UIImageView!
+    @IBOutlet var nativeTitleLabel:UILabel!
+    @IBOutlet var nativeDescLabel:UILabel!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        let adItem = TnkNativeAdItem(placementId:"event_a_native", adListener: self)
+        adItem.load()
+        
+    }
+    
+    func onLoad(_ adItem:TnkAdItem) {
+        if let nativeAdItem = adItem as? TnkNativeAdItem {
+            nativeImageView.image = nativeAdItem.getMainImage()
+            nativeIconView.image = nativeAdItem.getIconImage()
+            nativeTitleLabel.text = nativeAdItem.getTitle()
+            nativeDescLabel.text = nativeAdItem.getDescription()
+            
+            nativeAdItem.attach(nativeContainerView, clickView:nativeImageView)
+        }
+    }
+}
+```
+
+```Objective-C
+// ViewController.h
+#import <UIKit/UIKit.h>
+#import <TnkPubSdk/TnkPubSdk.h>
+
+@interface ViewController : UIViewController <TnkAdListener>
+
+@property (nonatomic, weak) IBOutlet UIView *nativeContainerView;
+@property (nonatomic, weak) IBOutlet UIImageView *nativeImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *nativeIconView;
+@property (nonatomic, weak) IBOutlet UILabel *nativeTitleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *nativedescLabel;
+
+@end
+
+// ViewController.m
+#import "ViewController.h"
+
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    TnkNativeAdItem* nativeItem = [[TnkNativeAdItem alloc] initWithPlacementId:@"event_a_native" adListener:self];
+    [nativeItem load];
+}
+
+- (void)onLoad:(id<TnkAdItem>)adItem {
+    TnkNativeAdItem* nativeItem = (TnkNativeAdItem*)adItem;
+    
+    self.nativeImageView.image = [nativeItem getMainImage];
+    self.nativeIconView.image = [nativeItem getIconImage];
+    self.nativeTitleLabel.text = [nativeItem getTitle];
+    self.nativedescLabel.text = [nativeItem getDescription];
+    
+    [nativeItem attach:self.nativeContainerView clickView:self.nativeImageView];
+}
+
+@end
+```
+
+#### 네이티브 광고 표시하기
+
+네이티브 광고는 TnkNativeAdItem 객체에서 제공하는 광고 Asset들과 Text 들을 사용하여 개발사에서 직접 화면에 표시합니다. 아래의 샘플을 참고하세요.
 
 
 ## 5. 동영상 광고 (Video Ad)
