@@ -304,12 +304,78 @@ class ViewController: UIViewController, TnkAdListener {
 
 ## 3. 배너 광고 (Banner Ad)
 
-배너 광고를 사용하기 위해서는 우선 배너 광고를 보여주기위한 View(Container View) 를 생성하신후 해당 View 를 TnkBannerView에 설정해야합니다.
+#### 컨테이너 뷰 생성
 
-#### 배너 뷰 생성
+배너 광고를 사용하기 위해서는 우선 배너 광고를 보여주기위한 View(Container View) 를 생성하신후 해당 View 를 TnkBannerView에 설정해야합니다. StoryBoard 또는 Xib 파일에 TnkBannerView 를 표시할 UIView 를 생성합니다.
 
-#### 배너 광고 로드
 
+#### 배너 뷰 생성 및 배너 광고 로드
+
+배너광고 표시를 위한 TnkBannerAdView 객체를 설정하시고 frame 크기를 지정하신 후 앞서 생성한 ContainerView 를 지정합니다.
+이후 load() 메소드를 호출하고 AdListener 를 통하여 onLoad() 시점에 show() 를 호출하여 배너 광고를 표시합니다. 배너 광고는 기본값으로 30초에 한번씩 자동으로 재로딩됩니다.
+
+```Swift
+import UIKit
+import TnkPubSdk
+
+class ViewController: UIViewController, TnkAdListener {
+    @IBOutlet var bannerContainerView:UIView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        let bannerView = TnkBannerAdView(placementId: "mypage_banner", adListener: self)
+        bannerView.frame = CGRect(x: 0, y: 0, width: 320, height: 50)
+        bannerView.setContainerView(bannerContainerView)
+        bannerView.load()
+    }
+    
+    func onLoad(_ adItem:TnkAdItem) {
+        adItem.show()
+    }
+}
+```
+
+```Objective-C
+
+// ViewController.h
+#import <UIKit/UIKit.h>
+#import <TnkPubSdk/TnkPubSdk.h>
+
+@interface ViewController : UIViewController <TnkAdListener>
+
+@property (nonatomic, weak) IBOutlet UIView *bannerContainerView;
+
+@end
+
+// ViewController.m
+#import "ViewController.h"
+
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    TnkBannerAdView* adView = [[TnkBannerAdView alloc] initWithPlacementId:@"mypage_banner"
+                                                                adListener:self];
+    adView.frame = CGRectMake(0,0,320,50);
+    [adView setContainerView:self.bannerContainerView];
+    
+    [adView load];
+}
+
+- (void)onLoad:(id<TnkAdItem>)adItem {
+    [adItem show];
+}
+
+@end
+```
 ## 4. 네이티브 광고 (Native Ad)
 
 #### 레이아웃 생성
