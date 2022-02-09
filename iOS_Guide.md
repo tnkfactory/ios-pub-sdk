@@ -24,6 +24,8 @@
 
 ### SDK 다운로드
 
+**[[iOS Pub SDK Download v1.01](./sdk/TnkPubSdk.v1.01.zip)]**
+
 ### 프레임워크 등록
 
 다운로드받은 SDK 압축파일을 풀면 TnkPubSDK.xcframework 폴더가 생성됩니다.
