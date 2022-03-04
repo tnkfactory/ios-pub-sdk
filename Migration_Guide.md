@@ -167,15 +167,17 @@
 
 ### 차이점
 
-1) 전면 광고를 사용방법은 구 SDK에서는 TnkSession 클래스를 통해서만 가능했으나 신규 SDK에서는 **InterstitialAdItem** 클래스로 전면 광고를 사용하는 방법과 AdManager를 이용한 방법 총 2가지가 존재합니다. 기존에 TnkSession에서 전면 광고를 사용하던 방법과 유사한 방법은 AdManager를 사용한 방법 입니다.
-
-2) 광고 리스너는 AdListener 클래스를 사용합니다. 또한 AdListener 의 메소드들은 필요한 메소드만 구현하시고 사용하지 않는 메소드는 삭제하시면 됩니다.
-
-3) 전면 광고 클릭 감지의 경우 구 SDK에서는 TnkAdListener의 onClose() 매개변수 type을 통해 감지할 수 있었으나 신규 SDK는 **onClick**을 분리하는 것으로 변경되었습니다.
+1) AdListener가 TnkInterstitialDelegate -> TnkAdListener 로 변경되었습니다.
+2) Interstitial 광고 객체의 클래스가 기존 TnkInterstitialAd -> TnkInterstitialAdItem 으로 변경되었습니다.
+3) 광고 로딩 메소드 명이 prepare -> load 로 변경되었습니다.
+4) Placement ID 를 지정하는 시점에 광고 로딩(prepare 호출)시점에서 객체 생성시점으로 변경되었습니다.
+5) 전면 광고 클릭 감지의 경우 구 SDK에서는 AdListener의 onClose() 매개변수 type을 통해 감지할 수 있었으나 신규 SDK는 **onClick**을 분리하는 것으로 변경되었습니다.
 
 ## 4. 배너 광고 (Banner Ad) 마이그레이션
 
-배너 광고를 사용하는 방법은 XML 뷰 삽입 방식과 뷰 동적 생성 방식 두 가지가 있습니다.
+구 SDK 는 배너광고 기능을 제공하지 않았으니 신규 Pub SDK 에서는 배너 광고 기능을 제공하고 있습니다. 
+자세한 내용은 
+구 SDK 는 배너광고 기능을 제공하지 않았으니 신규 Pub SDK 에서는 배너 광고 기능을 제공하고 있습니다. 배너 광고를 사용하는 방법은 XML 뷰 삽입 방식과 뷰 동적 생성 방식 두 가지가 있습니다. 
 
 구 SDK에서 신규 SDK로 전면 광고를 마이그레이션 하기 위해 사용 방법을 비교해보면 아래와 같습니다.
 
