@@ -13,6 +13,10 @@ Tnk Pub SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱�
 
 [iOS 가이드 문서](./iOS_Guide.md)
 
+### Migration Guide
+
+[Migration 가이드 문서](./Migration_Guide.md)
+
 ### Update Notice
 
 * 2022.02.09 
