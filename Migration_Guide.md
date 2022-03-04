@@ -1,4 +1,4 @@
-# Migration Guide (for Android)
+# Migration Guide (for iOS)
 
 구 SDK를 사용 중이던 매체사에서는 해당 마이그레이션 가이드를 참고하면 쉽게 신규 SDK를 적용할 수 있습니다.
 
@@ -47,62 +47,36 @@
 
 신규 Publisher SDK를 사용하기 위해서는 기존에 사용하던 구 SDK의 제거 후 사용이 가능합니다.
 
-**삽입한 [tnkad_sdk.aar] 파일을 삭제하고 해당 파일을 프로젝트에 참조하던 설정을 제거해주세요.**
+**추가되어 있는 구 SDK 및 관련 Framework 를 삭제해주세요.(표 참고)**
+| 라이브러리                    | 용도                                                         |
+| ----------------------------- | ------------------------------------------------------------ |
+| libtnksdk.a                   | 구 TnkAd SDK 라이브러리             |
+| libz.tbd           | 압축라이브러리 (구 TnkAd SDK가 서버통신시 사용함)    |
+| MediaPlayer.framework | 동영상 광고 표시를 위하여 사용됨              |
+| AdSupport.framework | IdfA 값 획득을 위하여 사용됨 (반드시 Optional 모드로 추가해야 한다.) |
+| SystemConfiguration.framework | Wifi 연결상태를 확인하기 위하여 사용됨 |
+| AppTrackingTransparency.framework | 앱 추적 동의 팝업              |
+| StoreKit.framework | AppStore 이동을 위한 기능 제공                 |
 
-##### 삭제 예시
+##### 신규 Pub SDK 등록
 
-구 SDK 가이드의 라이브러리 등록 방식(File > New Module)으로 SDK 참조 했을 경우 예시입니다.
+신규 Pub SDK 적용가이드를 참고하시어 신규 SDK 를 프로젝트에 추가해주세요.
 
-###### gradle에서 아래 부분 삭제
+참고)
+구 SDK 는 Objective-C 로 작성된 Library 형태로 제공되어 SDK 라이브러리 및 필요한 프레임워크를 일일히 추가해야만 했으나
+신규 Pub SDK 는 xcframework 로 개발되어 Pub SDK 만 추가하시면 필요한 라이브러리와 프레임워크는 별도로 추가하실 필요가 없습니다.
+또한 기존 SDK 는 swift 에서 사용할 경우 Bridge 헤더파일을 생성해야했지만 신규 Pub SDK 는 그러한 번거로움 없이 Objective-C 와 swift 모두 자유롭게 사용하실 수 있습니다.
 
-```
-dependencies {
-    implementation project(":tnkad_sdk") // 이 부분 삭제
-}
-```
-
-###### SDK 파일 삭제
-
-![migration_guide_01](./img/migration_guide_01.png)
-
-### 신규 Publisher SDK 설정하기
-
-TNK SDK는 Maven Central에 배포되어 있습니다.
-
-최상위 Level(Project) 의 build.gradle 에 maven repository를 추가해주세요. 
-
-```gradle
-repositories {
-    mavenCentral()
-}
-```
-아래의 코드를 App Module의 build.gradle 파일에 추가해주세요.
-
-```gradle
-dependencies {
-    implementation 'com.tnkfactory:pub:7.15.2'
-}
-```
-
-AndroidManifest.xml 파일에 아래의 권한을 추가해주세요.
-
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-```
-
-Proguard 를 사용하시는 경우 Proguard 설정 파일에 아래의 내용을 반드시 넣어주세요.
-
-```proguard
- -keep class com.tnkfactory.** { *;}
-```
+##### info.plist
+기존에 info.plist 파일에 tnk_app_id 가 등록되어 있다면 삭제하여 주시고 신규로 발급 받은 Publisher ID 를 info.plist 파일에 tnk_pub_id 값으로 추가하여 주시기 바랍니다.
 
 ### Tnk Publisher SDK 가이드
 
-더 상세한 Tnk Publisher SDK 사용방법은 [Tnk Publisher SDK (for Android)](./Android_Guide.md)를 참조하시면 됩니다. 
+더 상세한 Tnk Publisher SDK 사용방법은 [Tnk Publisher SDK (for iOS)](./iOS_Guide.md)를 참조하시면 됩니다. 
 
 ## 2. 공통 변경 사항
 
-1) **App ID**의 명칭을 **Inventory ID**로 변경하였습니다.
+1) info.plist 파일의 **tnk_app_id**의 명칭을 **tnk_pub_id**로 변경하였습니다.
 
 2) **광고 로직 ID**의 명칭을 **Placement ID**로 변경하였습니다.
 
@@ -114,7 +88,7 @@ Proguard 를 사용하시는 경우 Proguard 설정 파일에 아래의 내용�
   + 네이티브광고 : DEFAULT_NATIVE
   + 동영상광고 : DEFAULT_VIDEO
 
-3) 구 SDK에서는 각 광고 타입별 리스너가 구분되어 존재했으나 신규 SDK에서 모든 광고 리스너는 **AdListener** 하나로 통합되어 사용됩니다.
+3) 구 SDK에서는 각 광고 타입별 리스너가 구분되어 존재했으나 신규 SDK에서 모든 광고 리스너는 **TnkAdListener** 하나로 통합되어 사용됩니다.
 
 4) AdListener의 onFailure에서 제공되는 **AdError 클래스**의 getMessage()를 사용하여 에러의 원인 파악이 쉬워졌습니다.
 
