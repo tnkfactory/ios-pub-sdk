@@ -175,221 +175,88 @@
 
 ## 4. 배너 광고 (Banner Ad) 마이그레이션
 
-구 SDK 는 배너광고 기능을 제공하지 않았으니 신규 Pub SDK 에서는 배너 광고 기능을 제공하고 있습니다. 
+구 SDK 는 배너광고 기능을 제공하지 않았으나 신규 Pub SDK 에서는 배너 광고 기능을 제공하고 있습니다. 
 자세한 내용은 [Tnk Publisher SDK (for iOS)](./iOS_Guide.md)를 참조해주세요.
 
 ## 5. 네이티브 광고 (Native Ad) 마이그레이션
 
 ### 구 SDK 사용 방법
 
-```java
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  ...
+```objective-c
+#import "tnksdk.h"
 
-    NativeAdItem adItem = new NativeAdItem(this, NativeAdItem.STYLE_LANDSCAPE_1200, new NativeAdListener() {
-        @Override
-        public void onFailure(int errCode) {
-            Log.d("Test", "errCode : " + errCode);
-        }
+@interface ViewController : UIViewController <TnkNativeAdDelegate> {
+    // ...
+}
+@end
 
-        @Override
-        public void onLoad(NativeAdItem adItem) {
-            showNativeAd(adItem);
-        }
-
-        @Override
-        public void onClick() {
-        }
-
-        @Override
-        public void onShow() {
-        }
-
-    });
-
-    adItem.prepareAd("Logic ID");
-  
-  ...
+@implementation ViewController {
+    TnkNativeAd *tnkNative;
 }
 
-private void showNativeAd(NativeAdItem adItem) {
-    ViewGroup adContainer = findViewById(R.id.native_ad_container);
-    adContainer.removeAllViews();
+- (void)viewDidLoad {
+    [super viewDidLoad];
 
-    LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    RelativeLayout adItemView = (RelativeLayout)inflater.inflate(R.layout.native_ad_item, null);
+    // 1) Native Ad 광고용 객체 생성
+    tnkNative = [[TnkNativeAd alloc] init];
+    tnkNative.adStyle = AD_STYLE_LANDSCAPE;  // 가로 이미지 가져오도록 설정한다.
 
-    ImageView adIcon = adItemView.findViewById(R.id.ad_icon);
-    adIcon.setImageBitmap(adItem.getIconImage());
+    // 2) 네이티브 광고 한건 가져온다.
+    [tnkNative prepare:@"cross_first" delegate:self];
+}
 
-    TextView titleView = adItemView.findViewById(R.id.ad_title);
-    titleView.setText(adItem.getTitle());
+#pragma mark - TnkNativeAdDelegate
 
-    TextView descView = adItemView.findViewById(R.id.ad_desc);
-    descView.setText(adItem.getDescription());
+- (void) didNativeAdLoad:(TnkNativeAd *)ad {
+    // Rendering native Ad
 
-    ImageView adImage = adItemView.findViewById(R.id.ad_image);
-    adImage.setImageBitmap(adItem.getCoverImage());
-
-    RelativeLayout watermarkContainer = adItemView.findViewById(R.id.watermark_container);
-    ImageView watermark = adItem.getWatermark();
-    watermarkContainer.addView(watermark);
-
-    adContainer.addView(adItemView);
-
-    adItem.attachLayout(adItemView);
 }
 ```
 
 ### 신규 SDK 사용 방법
 
-```java
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  ...
+```Objective-C
+// ViewController.h
+#import <UIKit/UIKit.h>
+#import <TnkPubSdk/TnkPubSdk.h>
+
+@interface ViewController : UIViewController <TnkAdListener>
+
+@end
+
+// ViewController.m
+#import "ViewController.h"
+
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
-    NativeAdItem nativeAdItem = new NativeAdItem(this, "Placement ID");
-    nativeAdItem.setListener(new AdListener() {
-        @Override
-        public void onError(AdItem adItem, AdError error) {
-            Log.e("Test", "errCode : " + error.getMessage());
-        }
-
-        @Override
-        public void onLoad(AdItem adItem) {
-          	// 네이티브 광고 노출
-            showNativeAd((NativeAdItem) adItem);
-        }
-    });
-
-    // 네이티브 광고 로드
-    nativeAdItem.load();
-  
-  ...
+    TnkNativeAdItem* nativeItem = [[TnkNativeAdItem alloc] initWithPlacementId:@"event_a_native" adListener:self];
+    [nativeItem load];
 }
 
-// 네이티브 광고 노출
-private void showNativeAd(NativeAdItem nativeAdItem) {
-
-    if (nativeAdItem != null & nativeAdItem.isLoaded()) {
-
-        // 네이티브 광고가 삽입될 컨테이너 초기화
-        ViewGroup adContainer = findViewById(R.id.native_ad_container);
-        adContainer.removeAllViews();
-
-        // 네이티브 아이템 레이아웃 삽입
-        ViewGroup view = (ViewGroup) View.inflate(this, R.layout.native_ad_item, adContainer);
-
-        // 네이티브 바인더 객체 생성
-        // 생성자에 메인 컨텐츠가 표시될 뷰 ID 필수 입력
-        NativeViewBinder binder = new NativeViewBinder(R.id.native_ad_content);
-
-        // 네이티브 바인더 셋팅
-        binder.iconId(R.id.native_ad_icon)
-                .titleId(R.id.native_ad_title)
-                .textId(R.id.native_ad_desc)
-                .starRatingId(R.id.native_ad_rating)
-                .watermarkIconId(R.id.native_ad_watermark_container)
-                .addClickView(R.id.native_ad_content);
-
-        // 네이티브 광고 노출
-        nativeAdItem.attach(view, binder);
-    }
+- (void)onLoad:(id<TnkAdItem>)adItem {
+    TnkNativeAdItem* nativeItem = (TnkNativeAdItem*)adItem;
+    
+    // Rendering native Ad
 }
+
+@end
 ```
 
 ### 차이점
 
-1) Placement ID를 광고 로드 시점이 아닌 **NativeAdItem 생성 시점**에 입력하도록 변경되었습니다.
+1) AdListener가 TnkNativeAdDelegate -> TnkAdListener 로 변경되었습니다.
+2) Native 광고 객체의 클래스가 기존 TnkNativeAd -> TnkNativeAdItem 으로 변경되었습니다.
+3) 광고 로딩 메소드 명이 prepare -> load 로 변경되었습니다.
+4) Placement ID 를 지정하는 시점에 광고 로딩(prepare 호출)시점에서 객체 생성시점으로 변경되었습니다.
+5) TnkNativeAd 객체 생성 후 adStyle 을 지정하는 로직이 삭제되었습니다. (Native 광고의 Size 는 Publisher Site 에서 지정합니다.)
+6) Native Ad 의 rendering 방법은 유사하지만 메소드 이름에서 약간의 변경이 있습니다. 자세한 내용은 [Tnk Publisher SDK (for iOS)](./iOS_Guide.md)를 참조해주세요.
 
-2) 광고 정보를 뷰에 맵핑을 하기 위해서 **네이티브 바인더** 기능이 추가 되었으며 바인더에 필요한 각 뷰의 ID를 넣어주면 SDK에서 광고 데이터를 삽입하여 노출합니다. 이때 광고의 메인 컨텐츠(이미지) 뷰의 ID 는 네이티브 바인더 생성시 필수로 입력해주어야 합니다.
-
-## 6. 동영상 광고 (Video Ad)
-
-### 구 SDK 사용 방법
-
-```java
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  ...
-    
-    TnkSession.prepareVideoAd(this, "Logic ID", new VideoAdListener() {
-
-        @Override
-        public void onClose(int type) {
-        }
-
-        @Override
-        public void onFailure(int errCode) {
-            Log.d("Test", "errCode : " + errCode);
-        }
-
-        @Override
-        public void onLoad() {
-          	// 비디오 광고 로드 완료 후 showVideoAd
-            TnkSession.showVideoAd(GuideTestActivity.this, "Logic ID");
-        }
-
-        @Override
-        public void onShow() {
-        }
-
-        @Override
-        public void onVideoCompleted(boolean skipped) {
-            Log.d("Test", "video onVideoCompleted");
-        }
-    }, true);
-  
-  ...
-}
-```
-
-### 신규 SDK 사용 방법
-
-```java
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  ...
-    
-    final InterstitialAdItem interstitialAdItem = new InterstitialAdItem(this, "Placement ID");
-    interstitialAdItem.setListener(new AdListener() {
-
-        @Override
-        public void onError(AdItem adItem, AdError error) {
-            Log.e("Test", "Error : " + error.getMessage());
-        }
-
-        @Override
-        public void onLoad(AdItem adItem) {
-            // 광고가 로드 완료된 후 show를 호출해주어야 합니다.
-            adItem.show();
-        }
-      
-      	@Override
-        public void onVideoCompletion(AdItem adItem, int verifyCode) {
-            super.onVideoCompletion(adItem, verifyCode);
-
-          	// 적립 성공 여부 확인
-            if (verifyCode >= VIDEO_VERIFY_SUCCESS_SELF) {
-                // 적립 성공
-            } else {
-                // 적립 실패
-            }
-        }
-    });
-
-    interstitialAdItem.load();
-  
-  ...
-}
-```
-
-### 차이점
-
-1) 동영상 광고의 사용방법은 구 SDK에서는 TnkSession 클래스를 통해 가능했으나 신규 SDK에서는 **InterstitialAdItem** 클래스가 추가되어 동영상 광고를 사용할 수 있도록 변경되었습니다.
-
-2) 신규 SDK의 동영상 광고는 전면 광고 사용방법과 동일하며 Placement ID 생성 후 광고 설정을 동영상으로 설정해주시면 동영상 광고가 노출됩니다.
-
-3) 구 SDK에서는 VideoAdListener를 통해 비디오 광고의 재생완료 여부만 확인할 수 있었으나 신규 SDK에서는 AdListener의 onVideoCompletion() 매개변수 verifyCode를 통해서 동영상 시청을 통한 리워드가 지급 되었는지 여부를 확인하는 기능이 추가되었습니다.
 
