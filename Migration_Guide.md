@@ -90,7 +90,7 @@
 
 3) 구 SDK에서는 각 광고 타입별 리스너가 구분되어 존재했으나 신규 SDK에서 모든 광고 리스너는 **TnkAdListener** 하나로 통합되어 사용됩니다.
 
-4) AdListener의 onFailure에서 제공되는 **AdError 클래스**의 getMessage()를 사용하여 에러의 원인 파악이 쉬워졌습니다.
+4) AdListener의 onFailure에서 제공되는 **AdError 클래스**의 description()를 사용하여 에러의 원인 파악이 쉬워졌습니다.
 
 ## 3. 전면 광고 (Interstitial Ad) 마이그레이션
 
