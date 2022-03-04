@@ -58,7 +58,7 @@
 | AppTrackingTransparency.framework | 앱 추적 동의 팝업              |
 | StoreKit.framework | AppStore 이동을 위한 기능 제공                 |
 
-##### 신규 Pub SDK 등록
+#### 신규 Pub SDK 등록
 
 신규 Pub SDK 적용가이드를 참고하시어 신규 SDK 를 프로젝트에 추가해주세요.
 
@@ -67,8 +67,8 @@
 신규 Pub SDK 는 xcframework 로 개발되어 Pub SDK 만 추가하시면 필요한 라이브러리와 프레임워크는 별도로 추가하실 필요가 없습니다.
 또한 기존 SDK 는 swift 에서 사용할 경우 Bridge 헤더파일을 생성해야했지만 신규 Pub SDK 는 그러한 번거로움 없이 Objective-C 와 swift 모두 자유롭게 사용하실 수 있습니다.
 
-##### info.plist
-기존에 info.plist 파일에 tnk_app_id 가 등록되어 있다면 삭제하여 주시고 신규로 발급 받은 Publisher ID 를 info.plist 파일에 tnk_pub_id 값으로 추가하여 주시기 바랍니다.
+#### info.plist
+기존에 info.plist 파일에 tnk_app_id 가 등록되어 있다면 삭제하여 주시고 신규로 발급 받은 Publisher ID(Inventory ID) 를 info.plist 파일에 tnk_pub_id 값으로 추가하여 주시기 바랍니다.
 
 ### Tnk Publisher SDK 가이드
 
@@ -98,105 +98,71 @@
 
 ### 구 SDK 사용 방법
 
-```java
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  ...
-    
-    TnkSession.prepareInterstitialAd(this, "Logic ID", new TnkAdListener() {
-        @Override
-        public void onClose(int type) {
-            // 종료 버튼 선택 시 앱을 종료합니다.
-            if (type == TnkAdListener.CLOSE_EXIT) {
-                finish();
-            }
-        }
+```objective-c
+#import "tnksdk.h"
 
-        @Override
-        public void onFailure(int errCode) {
-            Log.e("Test", "Error : " + errCode);
-        }
+@interface ViewController : UIViewController <TnkInterstitialDelegate> {
+    // ...
+}
+@end
 
-        @Override
-        public void onLoad() {
-          // 광고 로드 완료 후 노출
-          TnkSession.showInterstitialAd(this);
-        }
+@implementation ViewController {
+    TnkInterstitialAd *tnkInterstitial;
+}
 
-        @Override
-        public void onShow() {
-        }
-    });    
-  
-  ...
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    // 1) 전면광고 용 객체 생성
+    tnkInterstitial = [[TnkInterstitialAd alloc] init];
+
+    // 2) 전면광고 요청 (Delegate 지정하여 호출함)
+    [tnkInterstitial prepare:@"cross_first" delegate:self];
+}
+
+#pragma mark - TnkInterstitialDelegate
+
+- (void) didInterstitialLoad:(TnkInterstitialAd *)ad {
+    // 전면광고를 화면에 띄운다.
+    [ad show];
 }
 ```
 
 ### 신규 SDK 사용 방법 
 
-#### InterstitialAdItem 사용법
+```Objective-C
+// ViewController.h
+#import <UIKit/UIKit.h>
+#import <TnkPubSdk/TnkPubSdk.h>
 
-```java
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  ...
+@interface ViewController : UIViewController <TnkAdListener>
+@end
+
+// ViewController.m
+#import "ViewController.h"
+
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
-    InterstitialAdItem interstitialAdItem = new InterstitialAdItem(this, "Placement ID");
-    interstitialAdItem.setListener(new AdListener() {
-
-        @Override
-        public void onError(AdItem adItem, AdError error) {
-            Log.e("Test", "Error : " + error.getMessage());
-        }
-
-        @Override
-        public void onLoad(AdItem adItem) {
-            // 광로 로드 완료 후 노출
-            adItem.show();
-        }
-    });
-
-    interstitialAdItem.load();
-  
-  ...
+    TnkInterstitialAdItem* adItem = [[TnkInterstitialAdItem alloc]
+                                        initWithViewController:self
+                                        placementId:@"YOUR-PLACEMENT-ID"];
+    [adItem setListener:self];
+    [adItem load];
 }
-```
 
-#### AdManager 사용법
+- (void)onLoad:(id<TnkAdItem>)adItem {
+    [adItem show];
+}
 
-##### 전면 광고 로드
-
-```java
-// AdListener 미사용시
-AdManager.getInstance().loadInterstitialAd(this, "YOUR-PlACEMENT-ID");
-
-// AdListener 사용시
-AdManager.getInstance().loadInterstitialAd(this, "YOUR-PlACEMENT-ID", new AdListener() {
-
-    @Override
-    public void onLoad(AdItem adItem) {
-      ...
-    }
-});
-```
-
-##### 전면 광고 노출
-
-InterstitialAdItem에서는 load() 후 광고 로딩이 완료된 상태에서 show()를 호출해야 광고가 노출되지만 AdManager에서는 loadInterstitialAd()를 호출함과 동시에 showInterstitialAd()를 호출이 가능합니다. 로드와 노출을 동시에 호출하게 되면 광고 로딩이 완료되는 시점에 노출이 자동으로 호출되어 광고가 보여지게 됩니다.
-
-```java
-// AdListener 미사용시
-AdManager.getInstance().showInterstitialAd(this, "YOUR-PlACEMENT-ID");
-
-// AdListener 사용시
-// loadInterstitialAd() 시 등록했던 AdListener를 교체할 때 사용
-AdManager.getInstance().showInterstitialAd(this, "YOUR-PlACEMENT-ID",new AdListener() {
-
-    @Override
-    public void onShow(AdItem adItem) {
-      ...
-    }
-});
+@end
 ```
 
 ### 차이점
