@@ -24,7 +24,7 @@
 
 ### SDK 다운로드
 
-**[[iOS Pub SDK Download v1.01](./sdk/TnkPubSdk.v1.01.zip)]**
+**[[iOS Pub SDK Download v1.02](./sdk/TnkPubSdk.v1.02.zip)]**
 
 ### 프레임워크 등록
 
