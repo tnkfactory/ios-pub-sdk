@@ -389,7 +389,11 @@ StoryBoard 또는 Xib 파일을 사용하여 아래의 이미지 예시처럼 �
 
 #### 네이티브 객체 생성 및 광고 로드
 
-네이티브 광고를 받아오기 위한 TnkNativeAdItem 객체를 생성하시고 load() 메소드를 호출합니다. 이후 onLoad() 시점에 필요한 광고 데이터를 가져와 화면에 표시합니다.
+네이티브 광고를 받아오기 위한 TnkNativeAdItem 객체를 생성하시고 load() 메소드를 호출합니다. 이후 광고가 로드되면 onLoad() 가 호출됩니다.
+
+#### 네이티브 광고 표시하기
+
+네이티브 광고는 TnkNativeAdItem 객체에서 제공하는 광고 Asset들과 Text 들을 사용하여 onLoad() 시점에 개발사에서 직접 화면에 표시합니다. 아래의 샘플을 참고하세요.
 
 ```Swift
 import UIKit
@@ -471,11 +475,6 @@ class ViewController: UIViewController, TnkAdListener {
 
 @end
 ```
-
-#### 네이티브 광고 표시하기
-
-네이티브 광고는 TnkNativeAdItem 객체에서 제공하는 광고 Asset들과 Text 들을 사용하여 개발사에서 직접 화면에 표시합니다. 아래의 샘플을 참고하세요.
-
 
 ## 5. 동영상 광고 (Video Ad)
 
