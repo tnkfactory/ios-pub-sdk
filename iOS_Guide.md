@@ -38,6 +38,57 @@
 ![drag_framework](./img/drag_framework.png)
 ![framework_embed](./img/framework_embed.png)
 
+### AppTrackingTransparency
+
+iOS 14 부터는 idfa 값 수집을 위하여 명시적으로 사용자 동의를 받아야합니다. idfa 값이 수집이 되지 않는 경우 사용자에게 적합한 광고 송출이 어렵기 때문에 매체의 수익이 감소될 수 있으므로 가급적 idfa 값 수집을 위한 사용자 동의를 받을 수 있도록 아래와 같이 진행해주시기 바랍니다.
+#### info.plist
+info.plist 파일에 아래와 같이 "Privacy - Tracking Usage Description" 문구를 추가합니다. 추가한 문구는 앱 추적 동의 팝업 창에 노출됩니다. 
+
+작성예시) 사용자에게 최적의 광고를 제공하기 위하여 광고활동 정보를 수집합니다.
+
+앱이 시작되어 앱이 active 되는 시점에 아래의 API 를 호출하여 앱 추적 동의창을 띄웁니다. (추적 동의 창은 최초 1회만 나타납니다.)
+```swift
+import AppTrackingTransparency
+
+func showATTPopup() {
+  if #available(iOS 14.0, *) {
+      ATTrackingManager.requestTrackingAuthorization { status in
+          // ...
+      }
+  }
+}
+```
+앱이 active 되는 시점을 정확히 파악하기 어려운 경우에는 아래와 같이 호출하실 수 도 있습니다.
+```swift
+import AppTrackingTransparency
+
+func showATTPopup() {
+  if #available(iOS 14.0, *) {
+      // iOS 15 부터는 applicationState 가 active 상태인 경우에만 ATTPopup 이 뜬다.
+      if UIApplication.shared.applicationState == .active {
+          ATTrackingManager.requestTrackingAuthorization { status in
+              // ...
+          }
+      }
+      else {
+          // 0.5 초 후에 다시 application state check
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+              self.showATTPopup()
+          }
+      }
+  }
+}
+```
+
+SDK 에서 제공하는 Util 함수를 호출하셔도 됩니다.
+```swift
+override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view.
+
+    TnkUtils.showATTPopup(viewController: self)
+
+}
 
 ### Test Flight
 
