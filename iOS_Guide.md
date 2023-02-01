@@ -45,6 +45,8 @@ iOS 14 부터는 idfa 값 수집을 위하여 명시적으로 사용자 동의�
 info.plist 파일에 아래와 같이 "Privacy - Tracking Usage Description" 문구를 추가합니다. 추가한 문구는 앱 추적 동의 팝업 창에 노출됩니다. 
 
 작성예시) 사용자에게 최적의 광고를 제공하기 위하여 광고활동 정보를 수집합니다.
+![info_plist](./img/info_plist.jpg)
+![att_popup](./img/att_popup.jpg)
 
 앱이 시작되어 앱이 active 되는 시점에 아래의 API 를 호출하여 앱 추적 동의창을 띄웁니다. (추적 동의 창은 최초 1회만 나타납니다.)
 ```swift
@@ -89,6 +91,7 @@ override func viewDidLoad() {
     TnkUtils.showATTPopup(viewController: self)
 
 }
+```
 
 ### Test Flight
 
