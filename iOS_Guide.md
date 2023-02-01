@@ -46,7 +46,7 @@ info.plist 파일에 아래와 같이 "Privacy - Tracking Usage Description" 문
 
 작성예시) 사용자에게 최적의 광고를 제공하기 위하여 광고활동 정보를 수집합니다.
 ![info_plist](./img/info_plist.jpg)
-![att_popup](./img/att_popup.jpg)
+![att_popup2](./img/att_popup2.jpg)
 
 앱이 시작되어 앱이 active 되는 시점에 아래의 API 를 호출하여 앱 추적 동의창을 띄웁니다. (추적 동의 창은 최초 1회만 나타납니다.)
 ```swift
