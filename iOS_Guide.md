@@ -176,7 +176,12 @@ Test Flight 에서는 별도로 계정등록을 하지않아도 간단히 테스
 
 실제 ID 를 등록하면 위 Test Flight 코드에서는 더 이상 광고가 나타나지 않습니다. Tnk Publish Site 에서 광고 유형에 맞추어 Placement 를 등록하시고 등록한 Placement의 이름을 사용하셔야 실제 광고가 표시됩니다.
 
-tnk_pub_id 
+tnk_pub_id 값 설정을 위한 API 가 별도로 제공됩니다. 이를 사용하시면 info.plist 파일에 등록하지 않고 tnk_pub_id 값을 설정할 수 있습니다. 만약 info.plist 에 등록된 tnk_pub_id 값이 있는 경우 그 값이 우선 적용됩니다.
+
+```Swift
+// 사용예
+TnkAdConfiguration.setPublisherId("d02050a0d0f.........1f0c010d0b06")
+```
 
 **(Test Flight의 PLACEMENT_ID를 사용하여 테스트를 진행하기 위해서는 Publisher ID를 등록하지 않고 진행 하셔야합니다.)**
 
