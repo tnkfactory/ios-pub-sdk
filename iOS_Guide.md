@@ -528,6 +528,12 @@ class ViewController: UIViewController, TnkAdListener {
     [nativeItem load];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [TnkNativeAdItem detach:self.nativeContainerView];
+}
+
 - (void)onLoad:(id<TnkAdItem>)adItem {
     TnkNativeAdItem* nativeItem = (TnkNativeAdItem*)adItem;
     
