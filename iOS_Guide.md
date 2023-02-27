@@ -477,6 +477,11 @@ class ViewController: UIViewController, TnkAdListener {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        TnkNativeAdItem.detach(nativeContainerView) // 명시적으로 detach 해야함
+    }
+    
     func onLoad(_ adItem:TnkAdItem) {
         if let nativeAdItem = adItem as? TnkNativeAdItem {
             nativeImageView.image = nativeAdItem.getMainImage()
@@ -535,6 +540,11 @@ class ViewController: UIViewController, TnkAdListener {
 
 @end
 ```
+
+#### 네이티브 광고 Detach
+
+네이티브 광고가 표시되는 뷰 또는 뷰 컨트롤러가 더 이상 사용되지 않는다면 위 예시와 같이 명시적으로 네이티브 광고가 attach 되어 있는 뷰를 detach 해주어야합니다.
+
 
 ## 5. 동영상 광고 (Video Ad)
 
