@@ -19,6 +19,13 @@ Tnk Pub SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱�
 
 ### Update Notice
 
+* 2023.02.27 v.1.09
+  * memory leak 수정
+  * dynamic library -> static library (framework 의 Embed 설정을 Do Not Embed 로 설정)
+  * nativeAdItem에 CTA, 광고제공자 로고이미지, 광고 정책 page url 가져오는 API 추가
+  * nativeAdItem 에 여러개의 clickView 를 지정할 수 있는 기능 추가
+  * bannerAdItem 에 onShow() listener 호출되도록 수정
+  * video play 종료시점 crash 되는 버그 수정
 * 2022.10.28
   * v.1.07 업데이트
     * tnk_pub_id 값을 info.plist 가 아니라 코딩으로 설정할 수 있는 기능 제공 
