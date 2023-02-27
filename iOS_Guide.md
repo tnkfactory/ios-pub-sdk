@@ -33,12 +33,13 @@
 (SDK v1.09 부터 framework 가 기존 dynamic library 에서 static library 로 변경되어 제공됩니다. 그러므로 이에 맞추어 Embed 설정을 `Do Not Embed` 로 변경해주세요.)
 
 아래의 이미지를 참고하세요.
-![drag_framework](./img/drag_framework.png)
-![framework_embed](./img/framework_embed.png)
+
+![pub_framework_embed](./img/pub_framework_embed.png)
 
 ### AppTrackingTransparency
 
 iOS 14 부터는 idfa 값 수집을 위하여 명시적으로 사용자 동의를 받아야합니다. idfa 값이 수집이 되지 않는 경우 사용자에게 적합한 광고 송출이 어렵기 때문에 매체의 수익이 감소될 수 있으므로 가급적 idfa 값 수집을 위한 사용자 동의를 받을 수 있도록 아래와 같이 진행해주시기 바랍니다.
+
 #### info.plist
 info.plist 파일에 아래와 같이 "Privacy - Tracking Usage Description" 문구를 추가합니다. 추가한 문구는 앱 추적 동의 팝업 창에 노출됩니다. 
 
