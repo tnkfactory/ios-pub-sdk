@@ -24,15 +24,13 @@
 
 ### SDK 다운로드
 
-**[[iOS Pub SDK Download v1.07](./sdk/TnkPubSdk.v1.07.zip)]**
+**[[iOS Pub SDK Download v1.09](./sdk/TnkPubSdk.v1.09.zip)]**
 
 ### 프레임워크 등록
 
-다운로드받은 SDK 압축파일을 풀면 TnkPubSDK.xcframework 폴더가 생성됩니다.
-해당 폴더를 적용하고자 하는 XCode 프로젝트 폴더로 이동시키세요.
-
-폴더를 이동시켰으면 TnkPubSDK.xcframework 폴더를 XCode 내에 마우스로 드래그합니다.
-이후 XCode -> Target -> General -> Frameworks, Libraries, and Embedded Content 항목에 TnkPubSdk.xcframework 가 있는 것을 확인하시고 Embed 설정을 Embed & Sign 으로 변경합니다.
+다운로드받은 SDK 압축파일을 풀면 TnkPubSDK.xcframework 폴더가 생성됩니다. TnkPubSDK.xcframework 폴더를 XCode 내에 마우스로 드래그합니다.
+이후 XCode -> Target -> General -> Frameworks, Libraries, and Embedded Content 항목에 TnkPubSdk.xcframework 가 있는 것을 확인하시고 Embed 설정을 `Do Not Embed` 로 변경합니다.
+(SDK v1.09 부터 framework 가 기존 dynamic library 에서 static library 로 변경되어 제공됩니다. 그러므로 이에 맞추어 Embed 설정을 `Do Not Embed` 로 변경해주세요.)
 
 아래의 이미지를 참고하세요.
 ![drag_framework](./img/drag_framework.png)
