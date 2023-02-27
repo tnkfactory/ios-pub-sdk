@@ -35,7 +35,7 @@
 
 아래의 이미지를 참고하세요.
 
-![pub_framework_embed](./img/pub_framework_embed.png)
+![pub_framework_embed](./img/pub_framework_embed.jpg)
 
 ### AppTrackingTransparency
 
