@@ -555,7 +555,7 @@ class ViewController: UIViewController, TnkAdListener {
 
 ## 5. 동영상 광고 (Video Ad)
 
-동영상 광고는 전면 광고와 사용 방법이 같아서 Tnk Site 에서 Placement 를 생성할 때 [동영상 광고 설정](#2-전면-광고-interstitial-ad)을 진행하여 주시고 전면 광고 가이드 그대로 진행하시면 됩니다.
+동영상 광고는 전면 광고와 사용 방법이 같아서 Tnk Site 에서 Placement 를 생성할 때 동영상 광고 설정을 진행하여 주시고 [전면 광고 가이드](#2-전면-광고-interstitial-ad) 그대로 진행하시면 됩니다.
 
 ### 리워드 동영상 광고 적립 여부 확인
 
