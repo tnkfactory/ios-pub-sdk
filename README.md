@@ -19,7 +19,10 @@ Tnk Pub SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱�
 
 ### Update Notice
 
-* 2023.03.07 v.1.09
+* 2023.03.09 v.1.11
+  * nativeAdItem 에 onShow() listener 호출로직의 버그 수정
+  * Reward Video 광고 기능 추가
+* 2023.03.07 v.1.10
   * nativeAdItem 에 onShow() listener 호출되도록 수정
   * bannerAdItem 에 visibility check 로직 추가
 * 2023.02.27 v.1.09
