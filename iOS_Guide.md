@@ -624,46 +624,46 @@ enum AdVideo : Int {
     case VerifyFailedError = -9 // 그외 시스템 에러가 발생
 }
 
-@objc public protocol TnkAdListener {
+protocol TnkAdListener {
     
     /**
      * 화면 닫힐 때 호출됨
      * @param adItem 이벤트 대상이되는 AdItem 객체
      * @param type 0:simple close, 1: auto close, 2:exit
      */
-    @objc optional func onClose(_ adItem:TnkAdItem, type:AdClose)
+    optional func onClose(_ adItem:TnkAdItem, type:AdClose)
     
     /**
      * 광고 클릭시 호출됨
      * 광고 화면은 닫히지 않음
      * @param adItem 이벤트 대상이되는 AdItem 객체
      */
-    @objc optional func onClick(_ adItem:TnkAdItem)
+    optional func onClick(_ adItem:TnkAdItem)
     
     /**
      * 광고 화면이 화면이 나타나는 시점에 호출된다.
      * @param adItem 이벤트 대상이되는 AdItem 객체
      */
-    @objc optional func onShow(_ adItem:TnkAdItem)
+    optional func onShow(_ adItem:TnkAdItem)
     
     /**
      * 광고 처리중 오류 발생시 호출됨
      * @param adItem 이벤트 대상이되는 AdItem 객체
      * @param error AdError
      */
-    @objc optional func onError(_ adItem:TnkAdItem, error:AdError)
+    optional func onError(_ adItem:TnkAdItem, error:AdError)
     
     /**
      * 광고 load() 후 광고가 도착하면 호출됨
      * @param adItem 이벤트 대상이되는 AdItem 객체
      */
-    @objc optional func onLoad(_ adItem:TnkAdItem)
+    optional func onLoad(_ adItem:TnkAdItem)
     
     /**
      * 동영상이 포함되어 있는 경우 동영상을 끝까지 시청하는 시점에 호출된다.
      * @param adItem 이벤트 대상이되는 AdItem 객체
      * @param verifyCode 동영상 시청 완료 콜백 결과.
      */
-    @objc optional func onVideoCompletion(_ adItem:TnkAdItem, verifyCode:Int)
+    optional func onVideoCompletion(_ adItem:TnkAdItem, verifyCode:Int)
 }
 ```
