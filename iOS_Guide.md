@@ -25,7 +25,7 @@
 
 ### SDK 다운로드
 
-**[[iOS Pub SDK Download v1.10](./sdk/TnkPubSdk.v1.10.zip)]**
+**[[iOS Pub SDK Download v1.11](./sdk/TnkPubSdk.v1.11.zip)]**
 
 ### 프레임워크 등록
 
@@ -555,10 +555,36 @@ class ViewController: UIViewController, TnkAdListener {
 
 ## 5. 동영상 광고 (Video Ad)
 
-지원 예정입니다.
+동영상 광고는 전면 광고와 사용 방법이 같아서 Tnk Site 에서 Placement 를 생성할 때 [동영상 광고 설정](#2-전면-광고-interstitial-ad)을 진행하여 주시고 전면 광고 가이드 그대로 진행하시면 됩니다.
 
+### 리워드 동영상 광고 적립 여부 확인
 
+리워드 동영상 광고의 경우 재생 완료 후 [AdListener](#6-adlistener-사용-방법) 의 onVideoCompletion() 호출되므로 이를 사용하여 적립 여부를 확인할 수 있습니다. 아래의 예시를 참고하세요.
 
+```swift
+@IBAction
+func onClick() {
+    let adItem = TnkInterstitialAdItem(viewController: self, placementId: "TEST_REWARD_V")
+    adItem.setListener(self)
+
+    adItem.load()
+}
+
+func onLoad(_ adItem:TnkAdItem) {
+    if let interstitialAdItem = adItem as? TnkInterstitialAdItem {
+        interstitialAdItem.show()
+    }
+}
+
+func onVideoCompletion(_ adItem:TnkAdItem, verifyCode:Int) {
+    if verifyCode >= 0 {
+        // 적립 진행
+    }
+    else {
+        // 적립 실패
+    }
+}
+```
 ## 6. AdListener 사용 방법
 
 전면, 배너, 네이티브 등 모든 광고는 setListener()를 통해 AdListener를 등록하여 사용할 수 있습니다.
