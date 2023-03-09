@@ -592,26 +592,13 @@ func onVideoCompletion(_ adItem:TnkAdItem, verifyCode:Int) {
 필요한 메소드만 Override하여 사용하면 됩니다.
 
 ```Swift
-@objc public enum AdClose : Int {
+enum AdClose : Int {
     case Simple = 0
     case Auto = 1
     case Exit = 2
-    
-    public func description() -> String {
-        switch self {
-        case .Simple:
-            return "AdClose.Simple"
-        case .Auto:
-            return "AdClose.Auto"
-        case .Exit:
-            return "AdClose.Exit"
-        default:
-            return "AdClose.Unknown"
-        }
-    }
 }
 
-@objc public enum AdError : Int {
+enum AdError : Int {
     case NoError = 0
     case NoAd = -1
     case NoImage = -2
@@ -625,42 +612,9 @@ func onVideoCompletion(_ adItem:TnkAdItem, verifyCode:Int) {
     case NoScreenOrientation = -25
     case NoTestDevice = -28
     case SystemFailure = -99
-    
-    public func description() -> String {
-        switch self {
-        case .NoError:
-            return "AdError.NoError"
-        case .NoAd:
-            return "AdError.NoAd"
-        case .NoImage:
-            return "AdError.NoImage"
-        case .Timeout:
-            return "AdError.Timeout"
-        case .Cancel:
-            return "AdError.Cancel"
-        case .ShowBeforeLoad:
-            return "AdError.ShowBeforeLoad"
-        case .NoAdFrame:
-            return "AdError.NoAdFrame"
-        case .DupLoad:
-            return "AdError.DupLoad"
-        case .DupShow:
-            return "AdError.DupShow"
-        case .NoPlacementId:
-            return "AdError.NoPlacementId"
-        case .NoScreenOrientation:
-            return "AdError.NoScreenOrientation"
-        case .NoTestDevice:
-            return "AdError.NoTestDevice"
-        case .SystemFailure:
-            return "AdError.SystemFailure"
-        default:
-            return "AdError.Unknown"
-        }
-    }
 }
 
-@objc public enum AdVideo : Int {
+enum AdVideo : Int {
     case VerifySuccessS2S = 1 // 매체 서버를 통해서 검증됨
     case VerifySuccessSelf = 0 // 매체 서버 URL이 설정되지 않아 Tnk 자체 검증
     case VerifyFailedS2s = -1 // 매체 서버를 통해서 지급불가 판단됨
@@ -668,32 +622,11 @@ func onVideoCompletion(_ adItem:TnkAdItem, verifyCode:Int) {
     case VerifyFailedNoData = -3 // 광고 송출 및 노출 이력 데이터가 없음
     case VerifyFailedTest = -4 // 테스트 동영상 광고임
     case VerifyFailedError = -9 // 그외 시스템 에러가 발생
-    
-    public func description() -> String {
-        switch self {
-        case .VerifySuccessS2S:
-            return "AdVideo.VerifySuccessS2S"
-        case .VerifySuccessSelf:
-            return "AdVideo.VerifySuccessSelf"
-        case .VerifyFailedS2s:
-            return "AdVideo.VerifyFailedS2s"
-        case .VerifyFailedTimeout:
-            return "AdVideo.VerifyFailedTimeout"
-        case .VerifyFailedNoData:
-            return "AdVideo.VerifyFailedNoData"
-        case .VerifyFailedTest:
-            return "AdVideo.VerifyFailedTest"
-        case .VerifyFailedError:
-            return "AdVideo.VerifyFailedError"
-        default:
-            return "AdVideo.UnknownError"
-        }
-    }
 }
 
 @objc public protocol TnkAdListener {
     
-        /**
+    /**
      * 화면 닫힐 때 호출됨
      * @param adItem 이벤트 대상이되는 AdItem 객체
      * @param type 0:simple close, 1: auto close, 2:exit
