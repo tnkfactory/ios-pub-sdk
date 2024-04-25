@@ -19,6 +19,8 @@ Tnk Pub SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱�
 
 ### Update Notice
 
+* 2024.04.25 v.1.15
+  * Privacy menifest 정리
 * 2024.02.21 v.1.14
   * Privacy menifest 추가
   * SDK 서명
