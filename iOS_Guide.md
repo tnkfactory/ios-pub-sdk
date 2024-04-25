@@ -42,7 +42,7 @@
 
 ![pub_set_embeded](./img/pub_set_embeded.png)
 
-## Static 라이브러리의 경우에는 위 Embed 설정을 'Do Not Embed' 상태로 설정하면 됩니다.
+#### Static 라이브러리의 경우에는 static 파일 압축 해재후에 위 Embed 설정을 'Do Not Embed' 상태로 설정하면 됩니다.
 
 ### AppTrackingTransparency
 
