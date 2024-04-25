@@ -25,8 +25,10 @@
 
 ### SDK 다운로드
 
-**[[iOS Pub SDK Download v1.15-dynamic](./sdk/TnkPubSdk.v1.15-dynamic.zip)]**
-**[[iOS Pub SDK Download v1.15-static](./sdk/TnkPubSdk.v1.15-static.zip)]**
+**[[iOS Pub SDK Download v.1.15-dynamic](./sdk/TnkPubSdk.v.1.15-dynamic.zip)]**
+
+**[[iOS Pub SDK Download v.1.15-static](./sdk/TnkPubSdk.v.1.15-static.zip)]**
+
 ### 프레임워크 등록
 
 ## Dynamic 라이브러리 적용방법
