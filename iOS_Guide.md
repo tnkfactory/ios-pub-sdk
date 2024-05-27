@@ -447,6 +447,27 @@ class ViewController: UIViewController, TnkAdListener {
 
 @end
 ```
+
+### 배너 광고 Detach
+
+배너 광고가 표시되는 뷰 또는 뷰 컨트롤러가 더 이상 사용되지 않는다면 아래 예시와 같이 명시적으로 네이티브 광고가 attach 되어 있는 뷰를 detach() 해주어야합니다.
+
+```Swift
+import UIKit
+import TnkPubSdk
+
+class ViewController: UIViewController, TnkAdListener {
+    @IBOutlet var bannerContainerView:UIView!
+    var bannerView : TnkBannerAdView?
+
+    override func viewDidDisappear(_ animated: Bool) {
+        bannerView?.dettach()
+    }
+}
+```
+
+
+
 ## 4. 네이티브 광고 (Native Ad)
 
 #### 레이아웃 생성
