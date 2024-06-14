@@ -18,7 +18,8 @@ Tnk Pub SDK는 Tnk의 광고 네트워크 상에서 광고앱 이나 매체앱�
 [Migration 가이드 문서](./Migration_Guide.md)
 
 ### Update Notice
-
+* 2024.06.14 v.1.18
+  * TnkBannerAdView 버그 수정
 * 2024.05.21 v.1.16
   * TnkBannerAdView 버그 수정
 * 2024.04.25 v.1.15
