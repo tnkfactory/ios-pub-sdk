@@ -517,7 +517,12 @@ class ViewController: UIViewController, TnkAdListener {
             nativeIconView.image = nativeAdItem.getIconImage()
             nativeTitleLabel.text = nativeAdItem.getTitle()
             nativeDescLabel.text = nativeAdItem.getDescription()
-            
+
+            // 광고 제공자 로고 이미지 (UIImage)
+            // nativeAdItem.getAdProviderLogoImage()
+            // 광고 제공자 정책 페이지 URL (String)
+            // nativeAdItem.getAdProviderPolicyUrl()
+
             nativeAdItem.attach(nativeContainerView, clickView:nativeImageView)
         }
     }
