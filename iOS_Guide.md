@@ -581,6 +581,69 @@ class ViewController: UIViewController, TnkAdListener {
 @end
 ```
 
+#### NativeViewBinder를 사용하여 네이티브 광고 표시하기
+TnkNativeViewBinder 델리게이트를 상속받아 구현합니다.
+TnkAdItem.attach( _ viewGroup:UIView? binder:TnkNativeViewBinder) 호출하여 해당 델리게이트를 전달합니다.
+Native 광고 구성에 사용되는 UIIMageView,UILabel등의 매핑 작업을 내부에서 자동 처리됩니다.
+```swift
+
+let combinedBannerView = UIView()
+let bannerImageView = UIImageView()
+let bannerTitleLb = UILabel()
+let bannerDescLb = UILabel()
+let waterMarkImageView = UIImageView()
+
+
+// TnkNativeViewBinder : 구현시 네이티브 광고 UI구성에 사용되는 각각의 UI컴포넌트를 return 하시면 됩니다.
+extension NativeDaTestVC : TnkNativeViewBinder
+{
+    // mainImageView = 메인 이미지 UIImageView
+    func mainImageView() -> UIImageView? {
+        return bannerImageView
+    }
+    // iconImageView = 아이콘 이미지 UIImageView
+    func iconImageView() -> UIImageView? {
+        return nil
+    }
+    // titleTextLabel = 타이틀
+    func titleTextLabel() -> UILabel? {
+        return bannerTitleLb
+    }
+    // descTextLabel = 광고 설명
+    func descTextLabel() -> UILabel? {
+        return bannerDescLb
+    }
+    // clickView = 클릭시 광고화면으로 이동할 터치 영역 UIView
+    func clickView() -> UIView? {
+        return combinedBannerView
+    }
+    // clickViews = 클릭시 광고화면으로 이동할 터치 영역 목록 ( 해당 목록이 nil일 경우 위 clickView에 정의된 단일 UIVIew에 클릭이벤트를 부착합니다.)
+    func clickViews() -> [UIView]? {
+        return nil
+    }
+    // callToActionLabel = 광고 참여 안내(ex : 지금 클릭하세요!)
+    func callToActionLabel() -> UILabel? {
+        return nil
+    }
+    // adProviderImageView = 워터 마크 이미지
+    func adProviderImageView() -> UIImageView? {
+        return waterMarkImageView
+    }
+}
+
+
+extension NativeDaTestVC : TnkAdListener
+{
+    func onLoad(_ adItem:TnkAdItem) {
+        if let nativeAdItem = adItem as? TnkNativeAdItem {
+            //public func attach(_ viewGroup:UIView, binder:TnkNativeViewBinder) -> Bool
+            //TnkNativeViewBinder 프로토콜을 사용한 attach 함수 호출
+            nativeAdItem.attach(bannerContainerView, binder: self)
+        }
+    }
+}
+```
+
 #### 네이티브 광고 Detach
 
 네이티브 광고가 표시되는 뷰 또는 뷰 컨트롤러가 더 이상 사용되지 않는다면 위 예시와 같이 명시적으로 네이티브 광고가 attach 되어 있는 뷰를 detach 해주어야합니다.
