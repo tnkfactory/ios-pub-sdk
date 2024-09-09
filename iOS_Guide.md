@@ -25,9 +25,9 @@
 
 ### SDK 다운로드
 
-**[[iOS Pub SDK Download v.1.19-dynamic](./sdk/TnkPubSdk.v.1.19-dynamic.zip)]**
+**[[iOS Pub SDK Download v.1.20-dynamic](./sdk/TnkPubSdk.v.1.20-dynamic.zip)]**
 
-**[[iOS Pub SDK Download v.1.19-static](./sdk/TnkPubSdk.v.1.19-static.zip)]**
+**[[iOS Pub SDK Download v.1.20-static](./sdk/TnkPubSdk.v.1.20-static.zip)]**
 
 ### 프레임워크 등록
 
@@ -207,8 +207,6 @@ COPPA는 [미국 어린이 온라인 개인정보 보호법](https://www.ftc.gov
     [TnkAdConfiguration setCOPPA:NO];  // 기본값
 ```
 
-
-
 ## 2. 전면 광고 (Interstitial Ad)
 
 ### 전면 광고 객체 생성
@@ -379,6 +377,17 @@ class ViewController: UIViewController, TnkAdListener {
 배너 광고를 사용하기 위해서는 우선 배너 광고를 보여주기위한 View(Container View) 를 생성하신후 해당 View 를 TnkBannerView에 설정해야합니다. StoryBoard 또는 Xib 파일에 TnkBannerView 를 표시할 UIView 를 생성합니다.
 
 ![banner_layout](./img/banner_layout.png)
+
+#### 권장 컨테이너 뷰 디자인
+
+배너가 삽입될 Container뷰의 사이즈는 가로:세로 비율을 Admin에서 세팅한 배너에 맞추어 각각 가로 : 세로 비율을 (640:200) 또는 (640:100)으로 조정해주시기 바랍니다.
+적정 가로 사이즈는 iphone 세로 화면 기준으로 가로를 모두 꽉차게 설정하시는 것을 추천드립니다.
+높이 사이즈별 배너 표시 형태는 아래의 이미지를 참고해주시기 바랍니다. 
+
+샘플 이미지는 640:100(가로:세로) 배너 기준입니다.
+
+![컨테이너 예시](./img/banner_size_example.png)
+
 
 #### 배너 뷰 생성 및 배너 광고 로드
 
