@@ -25,9 +25,9 @@
 
 ### SDK 다운로드
 
-**[[iOS Pub SDK Download v.1.20-dynamic](./sdk/TnkPubSdk.v.1.20-dynamic.zip)]**
+**[[iOS Pub SDK Download v.1.21-dynamic](./sdk/TnkPubSdk.v.1.21-dynamic.zip)]**
 
-**[[iOS Pub SDK Download v.1.20-static](./sdk/TnkPubSdk.v.1.20-static.zip)]**
+**[[iOS Pub SDK Download v.1.21-static](./sdk/TnkPubSdk.v.1.21-static.zip)]**
 
 ### 프레임워크 등록
 
