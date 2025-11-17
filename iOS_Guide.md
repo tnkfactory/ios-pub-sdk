@@ -25,7 +25,7 @@
 
 ### SDK 다운로드
 
-**[[iOS Pub SDK Download v.1.21-dynamic](./sdk/TnkPubSdk.v.1.21-dynamic.zip)]**
+**[[iOS Pub SDK Download v.1.22-dynamic](./sdk/TnkPubSdk.v.1.22-dynamic.zip)]**
 
 **[[iOS Pub SDK Download v.1.22-static](./sdk/TnkPubSdk.v.1.22-static.zip)]**
 
