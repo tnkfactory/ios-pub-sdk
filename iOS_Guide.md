@@ -19,6 +19,9 @@
    * [네이티브 광고 표시하기](#네이티브-광고-표시하기)
    * [네이티브 광고 detach](#네이티브-광고-detach)
 5. [동영상 광고 (Video Ad)](#5-동영상-광고-video-ad)
+   * [전면 동영상 광고 (Interstitial Video Ad)](#전면-동영상-광고-interstitial-video-ad)
+   * [리워드 동영상 광고 (Reward Video Ad)](#리워드-동영상-광고-reward-video-ad)
+     * [리워드 동영상 광고 적립 여부 확인](#리워드-동영상-광고-적립-여부-확인)
 6. [AdListener 사용 방법](#6-adlistener-사용-방법)
 
 ## 1. SDK 설정하기
@@ -170,9 +173,10 @@ class ViewController: UIViewController, TnkAdListener {
 - TEST_INTERSTITIAL_H : 전면 광고 가로
 - TEST_INTERSTITIAL_V : 전면 광고 세로
 - TEST_INTERSTITIAL_V_FINISH : 전면 광고 세로 (종료시 2-Button 형)
-- TEST_FEED : 피드형 광고
 - TEST_NATIVE : 네이티브 광고
 - TEST_REWARD_V : 리워드 동영상 광고
+
+> iOS SDK 는 현재 피드형(Feed) 광고를 지원하지 않습니다. `TEST_FEED` Placement 는 iOS 에서 사용할 수 없으니 참고하세요. (Android 는 지원합니다 — [Android 가이드](https://github.com/tnkfactory/android-sdk/blob/master/Android_Guide.md#4-피드형-광고-feed-ad) 참고)
 
 ### Publisher ID 등록하기
 
@@ -660,36 +664,95 @@ extension NativeDaTestVC : TnkAdListener
 
 ## 5. 동영상 광고 (Video Ad)
 
-동영상 광고는 전면 광고와 사용 방법이 같아서 Tnk Site 에서 Placement 를 생성할 때 동영상 광고 설정을 진행하여 주시고 [전면 광고 가이드](#2-전면-광고-interstitial-ad) 그대로 진행하시면 됩니다.
+### 전면 동영상 광고 (Interstitial Video Ad)
 
-### 리워드 동영상 광고 적립 여부 확인
+동영상 재생이 포함된 전면 광고는 Tnk Site 에서 Placement 를 생성할 때 동영상 광고 설정을 진행하여 주시고 [전면 광고 가이드](#2-전면-광고-interstitial-ad) 그대로 진행하시면 됩니다. `TnkInterstitialAdItem` 을 그대로 사용합니다.
 
-리워드 동영상 광고의 경우 재생 완료 후 [AdListener](#6-adlistener-사용-방법) 의 onVideoCompletion() 호출되므로 이를 사용하여 적립 여부를 확인할 수 있습니다. 아래의 예시를 참고하세요.
+### 리워드 동영상 광고 (Reward Video Ad)
 
-```swift
-@IBAction
-func onClick() {
-    let adItem = TnkInterstitialAdItem(viewController: self, placementId: "TEST_REWARD_V")
-    adItem.setListener(self)
+> ⚠️ `TnkRewardVideoItem` 은 **iOS 13.0 이상**에서만 사용할 수 있습니다 (`@available(iOS 13.0, *)`). 앱의 최소 지원 버전이 iOS 13 미만이라면 `#available(iOS 13, *)` / `API_AVAILABLE(ios(13.0))` 로 분기 처리해주세요.
 
-    adItem.load()
-}
+리워드 동영상 광고는 전용 클래스인 `TnkRewardVideoItem` 으로 생성합니다. `TnkInterstitialAdItem` 으로 `TEST_REWARD_V` 등 리워드 지면을 요청하는 방식은 사용하지 마세요 — 반드시 `TnkRewardVideoItem` 을 사용해야 합니다.
 
-func onLoad(_ adItem:TnkAdItem) {
-    if let interstitialAdItem = adItem as? TnkInterstitialAdItem {
-        interstitialAdItem.show()
+`TnkInterstitialAdItem` 과 달리 `TnkRewardVideoItem` 의 생성자는 `viewController` 를 받지 않습니다. `show()` 를 호출하면 SDK 가 현재 화면의 최상단 뷰 컨트롤러를 직접 찾아 그 위에 광고를 띄웁니다.
+
+#### Swift
+
+```Swift
+import UIKit
+import TnkPubSdk
+
+@available(iOS 13.0, *)
+class ViewController: UIViewController, TnkAdListener {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+
+        let rewardVideoAdItem = TnkRewardVideoItem(placementId: "YOUR-PLACEMENT-ID", adListener: self)
+        rewardVideoAdItem.load()
     }
-}
 
-func onVideoCompletion(_ adItem:TnkAdItem, verifyCode:Int) {
-    if verifyCode >= 0 {
-        // 적립 진행
+    func onLoad(_ adItem: TnkAdItem) {
+        adItem.show()
     }
-    else {
-        // 적립 실패
+
+    func onVideoCompletion(_ adItem: TnkAdItem, verifyCode: Int) {
+        if verifyCode >= 0 {
+            // 적립 진행
+        }
+        else {
+            // 적립 실패
+        }
     }
 }
 ```
+
+#### Objective-C
+
+```Objective-C
+// ViewController.h
+#import <UIKit/UIKit.h>
+#import <TnkPubSdk/TnkPubSdk.h>
+
+API_AVAILABLE(ios(13.0))
+@interface ViewController : UIViewController <TnkAdListener>
+@end
+
+// ViewController.m
+#import "ViewController.h"
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+
+    TnkRewardVideoItem* rewardVideoAdItem = [[TnkRewardVideoItem alloc]
+                                                initWithPlacementId:@"YOUR-PLACEMENT-ID"
+                                                adListener:self];
+    [rewardVideoAdItem load];
+}
+
+- (void)onLoad:(id<TnkAdItem>)adItem {
+    [adItem show];
+}
+
+- (void)onVideoCompletion:(id<TnkAdItem>)adItem verifyCode:(NSInteger)verifyCode {
+    if (verifyCode >= 0) {
+        // 적립 진행
+    } else {
+        // 적립 실패
+    }
+}
+
+@end
+```
+
+### 리워드 동영상 광고 적립 여부 확인
+
+리워드 동영상 광고의 경우 재생 완료 후 [AdListener](#6-adlistener-사용-방법) 의 onVideoCompletion() 이 호출되므로 위 예시처럼 이를 사용하여 적립 여부를 확인할 수 있습니다. `verifyCode` 값과 전체 콜백 목록은 [AdListener 사용 방법](#6-adlistener-사용-방법)을 참고하세요.
+
 ## 6. AdListener 사용 방법
 
 전면, 배너, 네이티브 등 모든 광고는 setListener()를 통해 AdListener를 등록하여 사용할 수 있습니다.
